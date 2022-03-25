@@ -14,7 +14,7 @@ class Navbar extends React.Component{
                     <div className="container">
                         <div className="row justify-content-between align-items-center">
                             <div>
-                                <h1>
+                                <h1 className='text-primary'>
                                     TodosApps 
                                 </h1>
                             </div>

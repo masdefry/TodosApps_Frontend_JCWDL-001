@@ -1,8 +1,11 @@
 // Components
 import Navbar from './Components/Navbar';
-import Todos from './Pages/Todos';
 
 // Pages
+import Todos from './Pages/Todos';
+
+// CSS
+import './Supports/Stylesheets/Todos.css'
 
 function App() {
   return (

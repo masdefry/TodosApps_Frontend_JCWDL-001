@@ -20,7 +20,7 @@ class Todos extends React.Component{
     render(){
         return(
             <div>
-                <div className="h-100 pt-5">
+                <div className="h-100 pt-5 todosapps-background">
                     <div className="container pt-5">
                         {/* Button Section */}
                         <div className="row justify-content-between pt-5">
@@ -29,16 +29,16 @@ class Todos extends React.Component{
                             </div>
                             <div className="col-6 text-right">
                                 <span>
-                                    <input type="button" value="All" className='btn btn-warning rounded-pill' />
+                                    <input type="button" value="All" className='btn btn-outline-primary mr-2 rounded-pill' />
                                 </span>
                                 <span>
-                                    <input type="button" value="Today" className='btn btn-warning rounded-pill' />
+                                    <input type="button" value="Today" className='btn btn-outline-danger mr-2 rounded-pill' />
                                 </span>
                                 <span>
-                                    <input type="button" value="Upcoming" className='btn btn-warning rounded-pill' />
+                                    <input type="button" value="Upcoming" className='btn btn-outline-warning mr-2 rounded-pill' />
                                 </span>
                                 <span>
-                                    <input type="button" value="Finish" className='btn btn-warning rounded-pill' />
+                                    <input type="button" value="Finish" className='btn btn-outline-success rounded-pill' />
                                 </span>
                             </div>
                         </div>
