@@ -1,3 +1,7 @@
-.todosapps-background{
-    background-image: url('https://cdn.pixabay.com/photo/2020/09/15/15/56/background-5574027_1280.png');
+.mytodosapps-background{
+    background-image: url(./../Images/MainPurple1.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
 }

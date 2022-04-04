@@ -1,0 +1,142 @@
+:root {
+    --main-light: #8399fe;
+    --main-dark: ;
+    --light: #fff;
+    --dark: ;
+    --secondary:  #00cb8e;
+    --light-grey: #e4e3e3;
+    --grey : #b9b9b9;
+    --warning : #faa816;
+    --danger : #FE4A49
+}
+
+/* My Background Color */
+
+.mytodosapps-bg-main-light {
+    background-color: var(--main-light);
+}
+
+.mytodosapps-bg-main-dark {
+    background-color: var(--main-dark);
+}
+
+.mytodosapps-bg-light {
+    background-color: var(--light);
+}
+
+.mytodosapps-bg-dark {
+    background-color: var(--dark);
+}
+
+.mytodosapps-bg-secondary {
+    background-color: var(--secondary);
+}
+
+.mytodosapps-bg-light-grey {
+    background-color: var(--light-grey);
+}
+
+.mytodosapps-bg-grey {
+    background-color: var(--grey);
+}
+
+.mytodosapps-bg-warning {
+    background-color: var(--warning);
+}
+
+.mytodosapps-bg-danger {
+    background-color: var(--danger);
+}
+
+/* My Font Color */
+
+.mytodosapps-main-light {
+    color: var(--main-light);
+}
+
+.mytodosapps-main-dark {
+    color: var(--main-dark);
+}
+
+.mytodosapps-light {
+    color: var(--light);
+}
+
+.mytodosapps-dark {
+    color: var(--dark);
+}
+
+.mytodosapps-secondary {
+    color: var(--secondary);
+}
+
+.mytodosapps-light-grey {
+    color: var(--light-grey);
+}
+
+.mytodosapps-grey {
+    color: var(--grey);
+}
+
+.mytodosapps-warning {
+    color: var(--warning);
+}
+
+/* My Custom Font Size */
+
+.mytodosapps-font-size-10 {
+    font-size: 10px;
+}
+
+.mytodosapps-font-size-12 {
+    font-size: 12px;
+}
+
+.mytodosapps-font-size-14 {
+    font-size: 14px;
+}
+
+.mytodosapps-font-size-16 {
+    font-size: 16px;
+}
+
+.mytodosapps-font-size-18 {
+    font-size: 18px;
+}
+
+.mytodosapps-font-size-20 {
+    font-size: 20px;
+}
+
+.mytodosapps-font-size-30 {
+    font-size: 30px;
+}
+
+.mytodosapps-font-size-60 {
+    font-size: 60px;
+}
+
+/* My Another Customs */
+
+.mytodosapps-link{
+    color: inherit;
+}
+
+.mytodosapps-link:hover{
+    color: inherit;
+    text-decoration: none;
+}
+
+.mytodosapps-clickable-element{
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.mytodosapps-input:focus{
+    outline: none;
+    box-shadow: none;
+}
+
