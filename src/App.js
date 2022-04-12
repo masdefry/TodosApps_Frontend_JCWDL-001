@@ -4,6 +4,8 @@ import Navbar from './Components/Navbar';
 // Pages
 import Todos from './Pages/Todos';
 import Register from './Pages/Register';
+import Confirmation from './Pages/Confirmation';
+import ConfirmationCode from './Pages/ConfirmationCode';
 
 // CSS
 import './Supports/Stylesheets/Todos.css'
@@ -27,6 +29,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Register />} />
           <Route path="/todos" element={<Todos />} />
+          <Route path="/confirmation/:id" element={<Confirmation />} />
+          <Route path="/confirmationcode/:id" element={<ConfirmationCode />} />
         </Routes>
       </Provider>
     </div>

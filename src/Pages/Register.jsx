@@ -39,7 +39,7 @@ class Register extends React.Component{
                             <input type="checkbox" className="form-check-input" />
                             <label className="form-check-label" >Check me out</label>
                         </div>
-                        <button type="submit" onClick={() => this.onSubmit()} className="btn btn-primary w-100 mb-3">
+                        <button type="submit" disabled={this.props.user.loading} onClick={() => this.onSubmit()} className="btn btn-primary w-100 mb-3">
                             {
                                 this.props.user.loading?
                                     'Loading'
