@@ -23,10 +23,16 @@ export class CreateTask extends Component {
             todo: this.todo.value,
             description: this.description.value,
             deadline: newDeadline,
-            users_id: 1
         }
 
-        Axios.post('http://localhost:3001/todos/create', dataToSend)
+        // Get Token
+        let token = localStorage.getItem('myTkn')
+
+        Axios.post('http://localhost:3001/todos/create', dataToSend, {headers: {
+            'Authorization': token,
+            'Accept' : 'application/json',
+            'Content-Type': 'application/json'
+        }})
         .then((result) => {
             this.setState({isLoading: false})
             alert(result.data.message)

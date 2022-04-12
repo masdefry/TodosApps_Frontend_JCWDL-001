@@ -5,6 +5,10 @@ import Peoples1 from './../Supports/Images/Peoples1.png';
 
 import CreateTask from './../Components/CreateTask.jsx';
 
+// Redux
+import {connect} from 'react-redux';
+import {onCheckUserVerify} from './../Redux/Actions/userAction'
+
 class Todos extends React.Component{
 
     state = {
@@ -12,7 +16,14 @@ class Todos extends React.Component{
     }
 
     componentDidMount(){
-        Axios.get('http://localhost:3001/todos/getAllData')
+        let token = localStorage.getItem('myTkn')
+        this.props.onCheckUserVerify(token)
+
+        Axios.get('http://localhost:3001/todos/getAllData', {headers: {
+            'Authorization': token,
+            'Accept' : 'application/json',
+            'Content-Type': 'application/json'
+        }})
         .then((res) => {
             this.setState({data: res.data.data})
         })
@@ -29,9 +40,16 @@ class Todos extends React.Component{
                         {/* Button Section */}
                         <div className="row justify-content-between pt-5">
                             <div className="col-6">
-                                <span onClick={() => this.setState({modalOpen : true})}>
-                                    <CreateTask className="btn btn-warning"></CreateTask>
-                                </span>
+                                {
+                                    this.props.user.is_confirmed === 1?
+                                        <span onClick={() => this.setState({modalOpen : true})}>
+                                            <CreateTask className="btn btn-warning"></CreateTask>
+                                        </span>
+                                    :
+                                        <span>
+                                            Activate Your Account!
+                                        </span>
+                                }
                             </div>
                             <div className="col-6 text-right">
                                 <span>
@@ -112,4 +130,14 @@ class Todos extends React.Component{
     }
 }
 
-export default Todos
+const mapDispatchToProps = {
+    onCheckUserVerify
+}
+
+const mapStateToProps = (state) => {
+    return{
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todos)

@@ -3,24 +3,25 @@ import { Navigate } from 'react-router-dom';
 
 // Redux
 import {connect} from 'react-redux';
-import {onUserRegister, onCheckUserLogin} from './../Redux/Actions/userAction'
+import {onUserLogin, onCheckUserLogin} from './../Redux/Actions/userAction'
 
-class Register extends React.Component{
+class Login extends React.Component{
 
     componentDidMount(){
         this.props.onCheckUserLogin()
     }
 
     onSubmit = () => {
-        let username = this.username.value 
-        let email = this.email.value 
-        let password = this.password. value 
+        let data = {
+            email: this.email.value,
+            password: this.password.value
+        }
 
-        this.props.onUserRegister(username, email, password)
+        this.props.onUserLogin(data)
     }
 
     render(){
-        if(this.props.user.is_login){
+        if(this.props.user.is_redirect || this.props.user.is_login){
             return(
                 <Navigate to='/todos' />
             )
@@ -31,12 +32,8 @@ class Register extends React.Component{
                 <div className="row justify-content-center align-items-center" style={{height: '100vh'}}>
                     <div className="col-5 border border-primary rounded px-5 py-5">
                         <h1 className="text-center my-3">
-                            Register Account
+                            Login
                         </h1>
-                        <div className="form-group">
-                            <label for="exampleInputEmail1">Username</label>
-                            <input type="text" ref={(e) => this.username = e} className="form-control" aria-describedby="emailHelp" />
-                        </div>
                         <div className="form-group">
                             <label for="exampleInputEmail1">Email</label>
                             <input type="text" ref={(e) => this.email = e} className="form-control" aria-describedby="emailHelp" />
@@ -55,13 +52,13 @@ class Register extends React.Component{
                                 this.props.user.loading?
                                     'Loading'
                                 :
-                                    'Register'
+                                    'Login'
                             }
                         </button>
                        
-                        <h6 className={this.props.user.error? "text-center text-danger" : "text-center text-success"}>
+                        <h6>
                             {
-                                this.props.user.message?
+                                this.props.user.error?
                                     this.props.user.message
                                 :
                                     null
@@ -75,7 +72,7 @@ class Register extends React.Component{
 }
 
 const mapDispatchToProps = {
-    onUserRegister, onCheckUserLogin
+    onUserLogin, onCheckUserLogin
 }
 
 const mapStateToProps = (state) => {
@@ -84,4 +81,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
