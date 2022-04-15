@@ -1,8 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { useParams, Navigate } from 'react-router-dom'
+
+// SweetAlert
+import Swal from 'sweetalert2';
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    // didOpen: (toast) => {
+    //   toast.addEventListener('mouseenter', Swal.stopTimer)
+    //   toast.addEventListener('mouseleave', Swal.resumeTimer)
+    // }
+})
 
 const Confirmation = () => {
+
+    const [isRedirect, setIsRedirect] = useState(false)
 
     let params = useParams();
 
@@ -13,13 +29,32 @@ const Confirmation = () => {
     }, [])
 
     const onConfirmation = () => {
-        Axios.patch('http://localhost:3001/user/confirmation', {id: params.id})
+        Axios.patch('http://localhost:3001/user/confirmation', {}, {headers: {
+            'Authorization': params.token,
+            'Accept' : 'application/json',
+            'Content-Type': 'application/json'
+        }})
         .then((res) => {
-            setMessage(res.data.message)
+            Toast.fire({
+                icon: 'success',
+                title: res.data.message
+            })
+            setIsRedirect(true)
+            localStorage.setItem('myTkn', params.token)
         })
         .catch((err) => {
             setMessage(err.response.data.message)
+            Toast.fire({
+                icon: 'error',
+                title: err.response.data.message
+            })
         })
+    }
+
+    if(isRedirect){
+        return(  
+            <Navigate to='/todos' />
+        )
     }
 
     return(

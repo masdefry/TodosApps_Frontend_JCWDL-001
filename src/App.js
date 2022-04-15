@@ -31,7 +31,7 @@ function App() {
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/todos" element={<Todos />} />
-          <Route path="/confirmation/:id" element={<Confirmation />} />
+          <Route path="/confirmation/:token" element={<Confirmation />} />
           <Route path="/confirmationcode/:id" element={<ConfirmationCode />} />
         </Routes>
       </Provider>

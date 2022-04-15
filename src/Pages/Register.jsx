@@ -1,26 +1,92 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import Axios from 'axios';
 
 // Redux
 import {connect} from 'react-redux';
-import {onUserRegister, onCheckUserLogin} from './../Redux/Actions/userAction'
+import {onUserRegister, onCheckUserLogin} from './../Redux/Actions/userAction';
+
+// SweetAlert
+import Swal from 'sweetalert2';
 
 class Register extends React.Component{
 
-    componentDidMount(){
-        this.props.onCheckUserLogin()
+    state = {
+        is_disabled: false,
+        isLogedIn: false
     }
 
-    onSubmit = () => {
-        let username = this.username.value 
-        let email = this.email.value 
-        let password = this.password. value 
+    componentDidMount(){
+        this.props.onCheckUserLogin()
+        this.onCheckIsLogedIn()
+    }
 
-        this.props.onUserRegister(username, email, password)
+    onCheckIsLogedIn = () => {
+        let token = localStorage.getItem('myTkn')
+
+        if(token){
+            this.setState({ isLogedIn: true })
+        }
+    }
+
+    // onSubmit = () => {
+    //     let username = this.username.value 
+    //     let email = this.email.value 
+    //     let password = this.password. value 
+
+    //     this.props.onUserRegister(username, email, password)
+    // }
+
+    onSubmit = () => {
+        try {
+            this.setState({ is_disabled: true })
+
+            let username = this.username.value 
+            let email = this.email.value 
+            let password = this.password.value 
+            let confirmPassword = this.confirmPassword.value 
+
+            // Validation
+            if(password !== confirmPassword) throw { message: 'Password doesnt match!' }
+            Axios.post('http://localhost:3001/user/register', {username, email, password})
+            .then((res) => {
+                Swal.fire({
+                    title: 'Success!',
+                    text: res.data.message,
+                    icon: 'success',
+                    confirmButtonText: 'Okay!'
+                })
+                this.username.value = ''
+                this.email.value = ''
+                this.password.value = ''
+                this.confirmPassword.value = ''
+
+                this.setState({ is_disabled: false })
+            })
+            .catch((err) => {
+                Swal.fire({
+                    title: 'Error!',
+                    text: err.response.data.message,
+                    icon: 'error',
+                    confirmButtonText: 'Okay!'
+                })
+
+                this.setState({ is_disabled: false })
+            })
+        } catch (error) {
+            Swal.fire({
+                title: 'Error!',
+                text: error.message,
+                icon: 'error',
+                confirmButtonText: 'Okay!'
+            })
+
+            this.setState({ is_disabled: false })
+        }
     }
 
     render(){
-        if(this.props.user.is_login){
+        if(this.state.isLogedIn){
             return(
                 <Navigate to='/todos' />
             )
@@ -46,13 +112,17 @@ class Register extends React.Component{
                             <label for="exampleInputPassword1">Password</label>
                             <input type="password" ref={(e) => this.password = e} className="form-control" />
                         </div>
+                        <div className="form-group">
+                            <label for="exampleInputPassword1">Confirm Password</label>
+                            <input type="password" ref={(e) => this.confirmPassword = e} className="form-control" />
+                        </div>
                         <div className="form-group form-check">
                             <input type="checkbox" className="form-check-input" />
                             <label className="form-check-label" >Check me out</label>
                         </div>
-                        <button type="submit" disabled={this.props.user.loading} onClick={() => this.onSubmit()} className="btn btn-primary w-100 mb-3">
+                        <button type="submit" disabled={this.state.is_disabled} onClick={() => this.onSubmit()} className="btn btn-primary w-100 mb-3">
                             {
-                                this.props.user.loading?
+                                this.state.is_disabled?
                                     'Loading'
                                 :
                                     'Register'

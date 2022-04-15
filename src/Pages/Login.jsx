@@ -7,8 +7,21 @@ import {onUserLogin, onCheckUserLogin} from './../Redux/Actions/userAction'
 
 class Login extends React.Component{
 
+    state = {
+        isLogedIn: false
+    }
+
     componentDidMount(){
         this.props.onCheckUserLogin()
+        // this.onCheckIsLogedIn()
+    }
+
+    onCheckIsLogedIn = () => {
+        let token = localStorage.getItem('myTkn')
+
+        if(token){
+            this.setState({ isLogedIn: true })
+        }
     }
 
     onSubmit = () => {

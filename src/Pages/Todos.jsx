@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 
 import Peoples1 from './../Supports/Images/Peoples1.png';
 
@@ -12,12 +13,14 @@ import {onCheckUserVerify} from './../Redux/Actions/userAction'
 class Todos extends React.Component{
 
     state = {
-        data: null
+        data: null,
+        isLogedIn: true
     }
 
     componentDidMount(){
         let token = localStorage.getItem('myTkn')
         this.props.onCheckUserVerify(token)
+        this.onCheckIsLogedIn(token)
 
         Axios.get('http://localhost:3001/todos/getAllData', {headers: {
             'Authorization': token,
@@ -32,7 +35,18 @@ class Todos extends React.Component{
         })
     }
 
+    onCheckIsLogedIn = (token) => {
+        if(!token){
+            this.setState({ isLogedIn: false })
+        }
+    }
+
     render(){
+        if(this.state.isLogedIn === false){
+            return(
+                <Navigate to='/login' />
+            )
+        }
         return(
             <div>
                 <div className="h-100 pt-5 mytodosapps-background">
