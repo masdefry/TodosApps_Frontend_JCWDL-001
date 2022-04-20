@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React from 'react';
 
 import InviniteNavbar from '../Supports/Functions/InfiniteNavbar';
@@ -6,6 +7,22 @@ class Navbar extends React.Component{
 
     componentDidMount(){
         window.onscroll = function(){ InviniteNavbar() }
+    }
+
+    onResendEmail = () => {
+        let token = localStorage.getItem('myTkn')
+
+        Axios.post('http://localhost:3001/user/resend', {}, {headers: {
+            'Authorization': token,
+            'Accept' : 'application/json',
+            'Content-Type': 'application/json'
+        }})
+        .then((res) => {
+            alert('Check Your Email!')
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }
 
     render(){
@@ -28,6 +45,11 @@ class Navbar extends React.Component{
                                 <span className="ml-3">
                                    
                                         <input type="button" value="Register" className="btn rounded shadow-lg mytodosapps-bg-secondary mytodosapps-light mytodosapps-input" />
+                                    
+                                </span>
+                                <span className="ml-3">
+                                   
+                                        <input type="button" value="Resend Email Confirmation" onClick={() => this.onResendEmail()} className="btn rounded shadow-lg mytodosapps-bg-secondary mytodosapps-light mytodosapps-input" />
                                     
                                 </span>
                             </div>

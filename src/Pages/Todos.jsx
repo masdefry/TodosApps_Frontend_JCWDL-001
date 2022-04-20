@@ -8,7 +8,9 @@ import CreateTask from './../Components/CreateTask.jsx';
 
 // Redux
 import {connect} from 'react-redux';
-import {onCheckUserVerify} from './../Redux/Actions/userAction'
+import {onCheckUserVerify} from './../Redux/Actions/userAction';
+
+import moment from 'moment';
 
 class Todos extends React.Component{
 
@@ -28,6 +30,7 @@ class Todos extends React.Component{
             'Content-Type': 'application/json'
         }})
         .then((res) => {
+            console.log(res)
             this.setState({data: res.data.data})
         })
         .catch((err) => {
@@ -104,6 +107,9 @@ class Todos extends React.Component{
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <h1>
+                                                            {moment(value.created_at).format('LLL')}
+                                                        </h1>
                                                         <div>
                                                             <span>{value.description}</span>
                                                         </div>
